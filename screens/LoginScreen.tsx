@@ -2,21 +2,19 @@ import { Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpac
 import React, {useEffect, useState} from 'react'
 import { auth } from '../firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/native'
 
 const LoginScreen = () => {
-    const [user, setUser] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigation = useNavigation()
 
     useEffect(() => {
-        const unsubscibe = onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 navigation.replace("Home")
             }
         })
-        return unsubscibe
     }, [])
 
     const handleSignUp = () => {
